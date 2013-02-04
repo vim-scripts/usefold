@@ -1,0 +1,16 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=4424
+
+Usefold provides functionality to ease putting fold markers based
+on indentation when using the marker foldmethod. No maps are 
+provided by default but has to be set up by the user.
+
+Usefold_FoldDown / FoldUp / FromInside functions are provided
+and creates a fold between the current line and the first line
+below/above that has the same level of indentation. In the last
+case, FoldDown is called on the first line above the current
+that is indented less than the current line.
+The functions can also be given a parameter, to specify another
+line than the current.
+
+Usefold_foldtext is also provided and is (according to me, the author)
+a better foldtext, that among other things preserve indentation.

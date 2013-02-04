@@ -1,0 +1,74 @@
+usefold.txt	For Vim version 7.3	Last change 2013 February 1
+						*Usefold*
+Usefold v0.0.3~
+
+Usefold provides functionality to ease putting fold markers based
+on indentation when using the marker foldmethod. No maps are
+provided by default but has to be set up by the user.
+
+						*Usefold_FoldDown()*
+Usefold_FoldDown([{lnum}])
+	Creates a fold beginning on line {lnum}, or if no parameter is
+	supplied, the current line, and ending on the next line
+	with the same indent level (|indent()|) as the beginning line.
+
+	If 'filetype' is python, the fold marker is created between
+	the last line that is indented more than the beginning line
+	and the the line that has the same indentation as the beginning
+	line.
+
+	Blank lines, and lines containing only whitespace are not
+	checked for indent level and will not be seen as ending a
+	block. In the python case, if the end of a code block is followed
+	by empty/whitespace, the mark is created as soon as possible,
+	at the end of the block.
+
+						*Usefold_FoldUp()*
+Usefold_FoldUp([{lnum}])
+	Same as |Usefold_FoldDown()| but travels upwards
+
+						*Usefold_FromInside()*
+Usefold_FromInside([{lnum}])
+	Checks the indentation on the chosen line (or the current),
+	and searches for the first line above it that is indented less,
+	then calls |Usefold_FoldDown)| on it.
+
+						*Usefold_foldtext()*
+Usefold_foldtext()
+	Alternative |foldtext()| implementation that preserves
+	indent, and concatenates the code of the opening and
+	closing lines.
+
+==============================================================================
+
+Example~
+
+>
+	1	int foo(void) {
+	2		do_stuff();
+	3		for(int i=0; i<128; ++i) {
+	4			do_other_stuff();
+	5		}
+	6	}
+<
+If the cursor is placed somewhere on line 3 in the code above;
+- executing |Usefold_FoldHere()| appends fold markers to line 3 and 5
+- executing |Usefold_FromInside()| appends fold markers to line 1 and 6
+
+==============================================================================
+
+Bugs~
+
+- Calling |Usefold_FromInside()| on an empty line behaves as specified,
+  but perhaps not as one would expect, or want
+
+Changelog~
+
+v0.0.3	change of function names, move towards optional function arguments
+	rather than wrapper functions
+v0.0.2	added |Usefold_FromHereUp()|
+v0.0.1	fixed regex bug
+v0.0.0	main functionality, doc writing
+
+ vim:tw=78:ts=8:ft=help:norl:
+
